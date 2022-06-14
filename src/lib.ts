@@ -1,99 +1,17 @@
-export type APIBadges = number;
-
-export type APIChannelTypes =
-  | 'Direct'
-  | 'Group'
-  | 'Text'
-  | 'Voice'
-  | 'Category'
-  | 'Unknown';
-
-export type APIBot = {
-  owner_id: number;
-  username: string;
-  id: number;
-  verified: boolean;
+export type APIRateLimitInfo = {
+  retry_after: number;
+  remaining: number;
+  limit: number;
 };
-
-export type APIOverwriteTypes = 'Role' | 'Member';
-
-export type APICreateSessionOptions = { password: string; email: string };
-
-export type APICreateServerChannelOptions = {
-  type: APIChannelTypes;
-  name: string;
-};
-
-export type APIInvite = {
-  id: number;
-  inviter_id: number;
-  code: string;
-  channel_id: number;
-  server_id?: number;
-  uses: number;
-};
-
-export type APIUpdateMemberOptions = { nickname?: string; roles?: number[] };
 
 export type APIRegisterAccountOptions = {
-  email: string;
-  invite_code?: string;
   username: string;
   password: string;
+  invite_code?: string;
+  email: string;
 };
 
-export type APIChannel = {
-  overwrites?: APIOverwrite[];
-  owner_id?: number;
-  parent_id?: number;
-  permissions?: APIPermissions;
-  server_id?: number;
-  type: APIChannelTypes;
-  recipients?: number[];
-  topic?: string;
-  name?: string;
-  id: number;
-};
-
-export type APIMessage = {
-  id: number;
-  content?: string;
-  channel_id: number;
-  author_id: number;
-  edited_at?: number;
-};
-
-export type APIEditMessageOptions = { content: string };
-
-export type APIServer = {
-  name: string;
-  icon?: string;
-  description?: string;
-  banner?: string;
-  owner_id: number;
-  permissions: APIPermissions;
-  id: number;
-};
-
-export type APISession = { token: string; user_id: number; id: number };
-
-export type APIOverwrite = {
-  deny: APIPermissions;
-  id: number;
-  type: APIOverwriteTypes;
-  allow: APIPermissions;
-};
-
-export type APICreateGroupOptions = { name: string };
-
-export type APIRole = {
-  server_id: number;
-  id: number;
-  hoist: boolean;
-  name: string;
-  permissions: APIPermissions;
-  color: number;
-};
+export type APISession = { user_id: number; token: string; id: number };
 
 export type APIError = (
   | { RateLimited?: APIRateLimitInfo }
@@ -128,53 +46,135 @@ export type APIError = (
   | 'MaximumBots'
 );
 
-export type APICreateMessageOptions = { channel_id: number; content: string };
-
 export type APIMember = {
-  nickname?: string;
   roles: number[];
+  nickname?: string;
   id: number;
-  server_id: number;
   joined_at: number;
+  server_id: number;
 };
 
-export type APICreateServerInviteOptions = { channel_id: number };
-
-export type APICreateServerOptions = { name: string };
+export type APICreateInviteOptions = { channel_id: number };
 
 export type APICreateRoleOptions = {
-  color: number;
   permissions: APIPermissions;
   name: string;
   hoist: boolean;
+  color: number;
 };
 
-export type APIUpdateRoleOptions = {
-  color?: number;
-  permissions?: APIPermissions;
-  hoist?: boolean;
+export type APIOverwriteTypes = 'Role' | 'Member';
+
+export type APIChannel = {
   name?: string;
+  permissions?: APIPermissions;
+  overwrites?: APIOverwrite[];
+  parent_id?: number;
+  recipients?: number[];
+  id: number;
+  type: APIChannelTypes;
+  owner_id?: number;
+  topic?: string;
+  server_id?: number;
+};
+
+export type APIBadges = number;
+
+export type APIServer = {
+  banner?: string;
+  description?: string;
+  owner_id: number;
+  permissions: APIPermissions;
+  id: number;
+  icon?: string;
+  name: string;
+};
+
+export type APICreateSessionOptions = { password: string; email: string };
+
+export type APICreateMessageOptions = { channel_id: number; content: string };
+
+export type APIUpdateRoleOptions = {
+  name?: string;
+  permissions?: APIPermissions;
+  color?: number;
+  hoist?: boolean;
 };
 
 export type APIPermissions = number;
 
-export type APIUser = {
+export type APIRole = {
+  id: number;
+  permissions: APIPermissions;
+  hoist: boolean;
+  name: string;
+  color: number;
+  server_id: number;
+};
+
+export type APICreateServerChannelOptions = {
+  type: APIChannelTypes;
+  name: string;
+};
+
+export type APIBot = {
   username: string;
+  owner_id: number;
+  verified: boolean;
+  id: number;
+};
+
+export type APIUser = {
+  avatar?: string;
+  username: string;
+  id: number;
+  password: string;
   email: string;
   badges: APIBadges;
-  avatar?: string;
-  id: number;
   verified: boolean;
-  password: string;
 };
 
-export type APIRateLimitInfo = {
-  limit: number;
-  remaining: number;
-  retry_after: number;
+export type APICreateServerOptions = { name: string };
+
+export type APIMessage = {
+  channel_id: number;
+  author_id: number;
+  content?: string;
+  edited_at?: number;
+  id: number;
 };
 
-export type APICreateInviteOptions = { channel_id: number };
+export type APIUpdateMemberOptions = { nickname?: string; roles?: number[] };
+
+export type APIChannelTypes =
+  | 'Direct'
+  | 'Group'
+  | 'Text'
+  | 'Voice'
+  | 'Category'
+  | 'Unknown';
+
+export type APIInvite = {
+  channel_id: number;
+  server_id?: number;
+  id: number;
+  uses: number;
+  inviter_id: number;
+  code: string;
+};
+
+export type APICreateServerInviteOptions = { channel_id: number };
+
+export type APIOverwrite = {
+  type: APIOverwriteTypes;
+  allow: APIPermissions;
+  id: number;
+  deny: APIPermissions;
+};
+
+export type APIEditMessageOptions = { content: string };
+
+export type APICreateGroupOptions = { name: string };
 
 export type Routes = {
   path: `/auth/accounts/register`;
@@ -314,7 +314,17 @@ export type Routes = {
 } | {
   path: `/servers/${string}/channels`;
   parts: 3;
+  method: 'GET';
+  response: APIChannel[];
+} | {
+  path: `/servers/${string}/channels`;
+  parts: 3;
   method: 'POST';
+  response: APIChannel;
+} | {
+  path: `/servers/${string}/channels/${string}`;
+  parts: 4;
+  method: 'GET';
   response: APIChannel;
 } | {
   path: `/servers/${string}/channels/${string}`;
