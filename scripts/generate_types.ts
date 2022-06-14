@@ -17,14 +17,14 @@ for (let [name, schema] of Object.entries(OpenAPI.components?.schemas!)) {
   if (isReference(schema)) {
     schema = OpenAPI.components!.schemas![schema.$ref.split('/').pop()!];
   }
-  components.push(`export type ${name} = ${getType(schema)}`);
+  components.push(`export type API${name} = ${getType(schema)}`);
 }
 
 function getType(schema: ReferenceObject | SchemaObject): string {
   if (schema == null) return 'undefined';
 
   if (isReference(schema)) {
-    return schema.$ref.split('/').pop()!;
+    return 'API' + schema.$ref.split('/').pop()!;
   }
 
   const nullable = (type: string) =>

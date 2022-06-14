@@ -1,25 +1,24 @@
-export type Overwrite = {
+export type APIOverwrite = {
   id: number;
-  deny: Permissions;
-  allow: Permissions;
-  type: OverwriteTypes;
+  deny: APIPermissions;
+  allow: APIPermissions;
+  type: APIOverwriteTypes;
 };
 
-
-export type Role = {
+export type APIRole = {
   server_id: number;
   name: string;
   color: number;
-  permissions: Permissions;
+  permissions: APIPermissions;
   id: number;
   hoist: boolean;
 };
 
-export type CreateGroupOptions = { name: string };
+export type APICreateGroupOptions = { name: string };
 
-export type CreateServerOptions = { name: string };
+export type APICreateServerOptions = { name: string };
 
-export type Message = {
+export type APIMessage = {
   id: number;
   channel_id: number;
   author_id: number;
@@ -27,37 +26,37 @@ export type Message = {
   content?: string;
 };
 
-export type Badges = number;
+export type APIBadges = number;
 
-export type CreateServerInviteOptions = { channel_id: number };
+export type APICreateServerInviteOptions = { channel_id: number };
 
-export type RateLimitInfo = {
+export type APIRateLimitInfo = {
   limit: number;
   remaining: number;
   retry_after: number;
 };
 
-export type Channel = {
+export type APIChannel = {
   server_id?: number;
   parent_id?: number;
   id: number;
   recipients?: number[];
-  overwrites?: Overwrite[];
+  overwrites?: APIOverwrite[];
   name?: string;
   owner_id?: number;
-  type: ChannelTypes;
-  permissions?: Permissions;
+  type: APIChannelTypes;
+  permissions?: APIPermissions;
   topic?: string;
 };
 
-export type Bot = {
+export type APIBot = {
   id: number;
   username: string;
   verified: boolean;
   owner_id: number;
 };
 
-export type ChannelTypes =
+export type APIChannelTypes =
   | 'Direct'
   | 'Group'
   | 'Text'
@@ -65,20 +64,20 @@ export type ChannelTypes =
   | 'Category'
   | 'Unknown';
 
-export type Session = { token: string; id: number; user_id: number };
+export type APISession = { token: string; id: number; user_id: number };
 
-export type CreateRoleOptions = {
+export type APICreateRoleOptions = {
   hoist: boolean;
   color: number;
-  permissions: Permissions;
+  permissions: APIPermissions;
   name: string;
 };
 
-export type CreateSessionOptions = { password: string; email: string };
+export type APICreateSessionOptions = { password: string; email: string };
 
-export type UpdateMemberOptions = { roles?: number[]; nickname?: string };
+export type APIUpdateMemberOptions = { roles?: number[]; nickname?: string };
 
-export type Invite = {
+export type APIInvite = {
   id: number;
   inviter_id: number;
   channel_id: number;
@@ -87,18 +86,18 @@ export type Invite = {
   code: string;
 };
 
-export type CreateInviteOptions = { channel_id: number };
+export type APICreateInviteOptions = { channel_id: number };
 
-export type UpdateRoleOptions = {
-  permissions?: Permissions;
+export type APIUpdateRoleOptions = {
+  permissions?: APIPermissions;
   name?: string;
   hoist?: boolean;
   color?: number;
 };
 
-export type Error = (
-  | { ValidationFailed?: { error: ValidationError } }
-  | { RateLimited?: RateLimitInfo }
+export type APIError = (
+  | { ValidationFailed?: { error: APIValidationError } }
+  | { RateLimited?: APIRateLimitInfo }
   | 'ParseFailed'
   | 'AccountVerificationRequired'
   | 'InvalidToken'
@@ -124,7 +123,7 @@ export type Error = (
   | 'Unknown'
 );
 
-export type Member = {
+export type APIMember = {
   nickname?: string;
   id: number;
   joined_at: number;
@@ -132,33 +131,36 @@ export type Member = {
   roles: number[];
 };
 
-export type CreateServerChannelOptions = { name: string; type: ChannelTypes };
+export type APICreateServerChannelOptions = {
+  name: string;
+  type: APIChannelTypes;
+};
 
-export type ValidationError = object;
+export type APIValidationError = object;
 
-export type RegisterAccountOptions = {
+export type APIRegisterAccountOptions = {
   username: string;
   password: string;
   email: string;
   invite_code?: string;
 };
 
-export type Permissions = number;
+export type APIPermissions = number;
 
-export type User = {
+export type APIUser = {
   avatar?: string;
   password: string;
   email: string;
   id: number;
-  badges: Badges;
+  badges: APIBadges;
   verified: boolean;
   username: string;
 };
 
-export type OverwriteTypes = 'Role' | 'Member';
+export type APIOverwriteTypes = 'Role' | 'Member';
 
-export type Server = {
-  permissions: Permissions;
+export type APIServer = {
+  permissions: APIPermissions;
   id: number;
   description?: string;
   banner?: string;
@@ -167,15 +169,15 @@ export type Server = {
   owner_id: number;
 };
 
-export type EditMessageOptions = { content: string };
+export type APIEditMessageOptions = { content: string };
 
-export type CreateMessageOptions = { channel_id: number; content: string };
+export type APICreateMessageOptions = { channel_id: number; content: string };
 
 export type Routes = {
   path: `/auth/accounts/register`;
   parts: 3;
   method: 'POST';
-  response: User;
+  response: APIUser;
 } | {
   path: `/auth/accounts/verify/${string}/${string}`;
   parts: 5;
@@ -185,17 +187,17 @@ export type Routes = {
   path: `/auth/sessions`;
   parts: 2;
   method: 'GET';
-  response: Session[];
+  response: APISession[];
 } | {
   path: `/auth/sessions`;
   parts: 2;
   method: 'POST';
-  response: Session;
+  response: APISession;
 } | {
   path: `/auth/sessions/${string}`;
   parts: 3;
   method: 'GET';
-  response: Session;
+  response: APISession;
 } | {
   path: `/auth/sessions/${string}`;
   parts: 3;
@@ -205,7 +207,7 @@ export type Routes = {
   path: `/bots`;
   parts: 1;
   method: 'GET';
-  response: Bot[];
+  response: APIBot[];
 } | {
   path: `/bots`;
   parts: 1;
@@ -215,7 +217,7 @@ export type Routes = {
   path: `/bots/${string}`;
   parts: 2;
   method: 'GET';
-  response: Bot;
+  response: APIBot;
 } | {
   path: `/bots/${string}`;
   parts: 2;
@@ -225,12 +227,12 @@ export type Routes = {
   path: `/channels`;
   parts: 1;
   method: 'GET';
-  response: Channel[];
+  response: APIChannel[];
 } | {
   path: `/channels`;
   parts: 1;
   method: 'POST';
-  response: Channel;
+  response: APIChannel;
 } | {
   path: `/channels/join/${string}/${string}`;
   parts: 4;
@@ -245,7 +247,7 @@ export type Routes = {
   path: `/channels/${string}`;
   parts: 2;
   method: 'GET';
-  response: Channel;
+  response: APIChannel;
 } | {
   path: `/channels/${string}`;
   parts: 2;
@@ -255,12 +257,12 @@ export type Routes = {
   path: `/invites`;
   parts: 1;
   method: 'POST';
-  response: Invite;
+  response: APIInvite;
 } | {
   path: `/invites/${string}`;
   parts: 2;
   method: 'GET';
-  response: Invite;
+  response: APIInvite;
 } | {
   path: `/invites/${string}`;
   parts: 2;
@@ -270,12 +272,12 @@ export type Routes = {
   path: `/messages`;
   parts: 1;
   method: 'POST';
-  response: Message;
+  response: APIMessage;
 } | {
   path: `/messages/${string}`;
   parts: 2;
   method: 'GET';
-  response: Message;
+  response: APIMessage;
 } | {
   path: `/messages/${string}`;
   parts: 2;
@@ -285,22 +287,22 @@ export type Routes = {
   path: `/messages/${string}`;
   parts: 2;
   method: 'PATCH';
-  response: Message;
+  response: APIMessage;
 } | {
   path: `/servers`;
   parts: 1;
   method: 'GET';
-  response: Server[];
+  response: APIServer[];
 } | {
   path: `/servers`;
   parts: 1;
   method: 'POST';
-  response: Server;
+  response: APIServer;
 } | {
   path: `/servers/${string}`;
   parts: 2;
   method: 'GET';
-  response: Server[];
+  response: APIServer[];
 } | {
   path: `/servers/${string}`;
   parts: 2;
@@ -310,7 +312,7 @@ export type Routes = {
   path: `/servers/${string}/channels`;
   parts: 3;
   method: 'POST';
-  response: Channel;
+  response: APIChannel;
 } | {
   path: `/servers/${string}/channels/${string}`;
   parts: 4;
@@ -320,22 +322,22 @@ export type Routes = {
   path: `/servers/${string}/channels/${string}`;
   parts: 4;
   method: 'PATCH';
-  response: Channel;
+  response: APIChannel;
 } | {
   path: `/servers/${string}/invites`;
   parts: 3;
   method: 'GET';
-  response: Invite[];
+  response: APIInvite[];
 } | {
   path: `/servers/${string}/invites`;
   parts: 3;
   method: 'POST';
-  response: Invite;
+  response: APIInvite;
 } | {
   path: `/servers/${string}/invites/${string}`;
   parts: 4;
   method: 'GET';
-  response: Invite;
+  response: APIInvite;
 } | {
   path: `/servers/${string}/invites/${string}`;
   parts: 4;
@@ -345,12 +347,12 @@ export type Routes = {
   path: `/servers/${string}/members`;
   parts: 3;
   method: 'GET';
-  response: Member[];
+  response: APIMember[];
 } | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
   method: 'GET';
-  response: Member;
+  response: APIMember;
 } | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
@@ -360,22 +362,22 @@ export type Routes = {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
   method: 'PATCH';
-  response: Member;
+  response: APIMember;
 } | {
   path: `/servers/${string}/roles`;
   parts: 3;
   method: 'GET';
-  response: Role[];
+  response: APIRole[];
 } | {
   path: `/servers/${string}/roles`;
   parts: 3;
   method: 'POST';
-  response: Role[];
+  response: APIRole[];
 } | {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
   method: 'GET';
-  response: Role;
+  response: APIRole;
 } | {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
@@ -385,19 +387,18 @@ export type Routes = {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
   method: 'PATCH';
-  response: Role[];
+  response: APIRole[];
 } | {
   path: `/users/@me`;
   parts: 2;
   method: 'GET';
-  response: User;
+  response: APIUser;
 } | {
   path: `/users/${string}`;
   parts: 2;
   method: 'GET';
-  response: User;
+  response: APIUser;
 };
-
 export type GetRoutes = Extract<Routes, { method: 'GET' }>;
 export type DeleteRoutes = Extract<Routes, { method: 'DELETE' }>;
 export type PostRoutes = Extract<Routes, { method: 'POST' }>;
