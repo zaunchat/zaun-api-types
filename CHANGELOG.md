@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/itchatapp/itchat-api-types/compare/v1.1.0...v1.2.0) (2022-06-14)
+
+
+### Features
+
+* update types ([2d39e37](https://github.com/itchatapp/itchat-api-types/commit/2d39e37b60d91c2388cdd284a5f7b5acb6cb96b6))
+
 # [1.1.0](https://github.com/itchatapp/itchat-api-types/compare/v1.0.0...v1.1.0) (2022-06-14)
 
 
