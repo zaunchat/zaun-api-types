@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/itchatapp/itchat-api-types/compare/v1.2.0...v1.2.1) (2022-06-14)
+
+
+### Bug Fixes
+
+* add missing routes ([afaf7c2](https://github.com/itchatapp/itchat-api-types/commit/afaf7c2fdcfda963eb09ec45d7f10d6767dacace))
+
 # [1.2.0](https://github.com/itchatapp/itchat-api-types/compare/v1.1.0...v1.2.0) (2022-06-14)
 
 
