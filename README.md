@@ -1,7 +1,13 @@
 # ItChat API Types
 
+### Installation 
+```s
+$ npm i @itchatapp/types
+```
 
 ```ts
+// for deno runtime 
+// import type { Message } from 'https://deno.land/x/itchatjs_types/mod.ts'
 import type { Message } from '@itchatapp/types'
 
 const message: Message = {
