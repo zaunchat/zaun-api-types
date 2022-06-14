@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/itchatapp/itchat-api-types/compare/v1.0.0...v1.1.0) (2022-06-14)
+
+
+### Features
+
+* Prefix types with "API" keyword ([397f6bb](https://github.com/itchatapp/itchat-api-types/commit/397f6bbb72b1b51424892a9c8dd18fb4e0877204))
+
 # 1.0.0 (2022-06-14)
 
 
