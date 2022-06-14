@@ -5,6 +5,8 @@
 $ npm i @itchatapp/types
 ```
 
+
+### Example Usage
 ```ts
 // for deno runtime 
 // import type { Message } from 'https://deno.land/x/itchatjs_types/mod.ts'
