@@ -85,7 +85,8 @@ function getType(schema: ReferenceObject | SchemaObject): string {
 
 for (const [path, methods] of Object.entries(OpenAPI.paths!)) {
   for (const [method, data] of Object.entries(methods)) {
-    const schema = data.responses['200']?.content?.['application/json']?.schema;
+    const schema = data.responses?.['200']?.content?.['application/json']
+      ?.schema;
     const typedResponse = getType(schema);
     const typedPath = path.replace(
       /\{(target|id|user|code|role_id|member|msg|server|message|username|_target|bot|group|channel|invite|session)(_id)?\}/g,

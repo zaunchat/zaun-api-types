@@ -1,150 +1,22 @@
-export type APIRateLimitInfo = {
-  retry_after: number;
-  remaining: number;
-  limit: number;
-};
-
-export type APIRegisterAccountOptions = {
-  username: string;
-  password: string;
-  invite_code?: string;
-  email: string;
-};
-
-export type APISession = { user_id: number; token: string; id: number };
-
-export type APIError = (
-  | { RateLimited?: APIRateLimitInfo }
-  | 'InvalidBody'
-  | 'MissingHeader'
-  | 'AccountVerificationRequired'
-  | 'InvalidToken'
-  | 'EmailAlreadyInUse'
-  | 'MissingPermissions'
-  | 'EmptyMessage'
-  | 'RequireInviteCode'
-  | 'InviteAlreadyTaken'
-  | 'FailedCaptcha'
-  | 'MissingAccess'
-  | 'UnknownAccount'
-  | 'UnknownBot'
-  | 'UnknownChannel'
-  | 'UnknownInvite'
-  | 'UnknownUser'
-  | 'UnknownMessage'
-  | 'UnknownServer'
-  | 'UnknownSession'
-  | 'UnknownRole'
-  | 'UnknownMember'
-  | 'Unknown'
-  | 'MaximumFriends'
-  | 'MaximumServers'
-  | 'MaximumGroups'
-  | 'MaximumRoles'
-  | 'MaximumChannels'
-  | 'MaximumGroupMembers'
-  | 'MaximumBots'
-);
-
-export type APIMember = {
-  roles: number[];
-  nickname?: string;
+export type APIBot = {
   id: number;
-  joined_at: number;
-  server_id: number;
+  owner_id: number;
+  username: string;
+  verified: boolean;
 };
-
-export type APICreateInviteOptions = { channel_id: number };
-
-export type APICreateRoleOptions = {
-  permissions: APIPermissions;
-  name: string;
-  hoist: boolean;
-  color: number;
-};
-
-export type APIOverwriteTypes = 'Role' | 'Member';
 
 export type APIChannel = {
-  name?: string;
-  permissions?: APIPermissions;
-  overwrites?: APIOverwrite[];
-  parent_id?: number;
-  recipients?: number[];
   id: number;
+  name?: string | null;
+  overwrites?: APIOverwrite[] | null;
+  owner_id?: number | null;
+  parent_id?: number | null;
+  permissions?: number | null;
+  recipients?: number[] | null;
+  server_id?: number | null;
+  topic?: string | null;
   type: APIChannelTypes;
-  owner_id?: number;
-  topic?: string;
-  server_id?: number;
 };
-
-export type APIBadges = number;
-
-export type APIServer = {
-  banner?: string;
-  description?: string;
-  owner_id: number;
-  permissions: APIPermissions;
-  id: number;
-  icon?: string;
-  name: string;
-};
-
-export type APICreateSessionOptions = { password: string; email: string };
-
-export type APICreateMessageOptions = { channel_id: number; content: string };
-
-export type APIUpdateRoleOptions = {
-  name?: string;
-  permissions?: APIPermissions;
-  color?: number;
-  hoist?: boolean;
-};
-
-export type APIPermissions = number;
-
-export type APIRole = {
-  id: number;
-  permissions: APIPermissions;
-  hoist: boolean;
-  name: string;
-  color: number;
-  server_id: number;
-};
-
-export type APICreateServerChannelOptions = {
-  type: APIChannelTypes;
-  name: string;
-};
-
-export type APIBot = {
-  username: string;
-  owner_id: number;
-  verified: boolean;
-  id: number;
-};
-
-export type APIUser = {
-  avatar?: string;
-  username: string;
-  id: number;
-  password: string;
-  email: string;
-  badges: APIBadges;
-  verified: boolean;
-};
-
-export type APICreateServerOptions = { name: string };
-
-export type APIMessage = {
-  channel_id: number;
-  author_id: number;
-  content?: string;
-  edited_at?: number;
-  id: number;
-};
-
-export type APIUpdateMemberOptions = { nickname?: string; roles?: number[] };
 
 export type APIChannelTypes =
   | 'Direct'
@@ -154,43 +26,127 @@ export type APIChannelTypes =
   | 'Category'
   | 'Unknown';
 
-export type APIInvite = {
-  channel_id: number;
-  server_id?: number;
-  id: number;
-  uses: number;
-  inviter_id: number;
-  code: string;
+export type APICreateGroupOptions = { name: string };
+
+export type APICreateInviteOptions = { channel_id: number };
+
+export type APICreateMessageOptions = { content: string };
+
+export type APICreateRoleOptions = {
+  color: number;
+  hoist: boolean;
+  name: string;
+  permissions: number;
 };
 
-export type APICreateServerInviteOptions = { channel_id: number };
+export type APICreateServerChannelOptions = {
+  name: string;
+  type: APIChannelTypes;
+};
 
-export type APIOverwrite = {
-  type: APIOverwriteTypes;
-  allow: APIPermissions;
-  id: number;
-  deny: APIPermissions;
+export type APICreateServerOptions = { name: string };
+
+export type APICreateSessionOptions = { email: string; password: string };
+
+export type APIEditMemberOptions = {
+  nickname: string | null;
+  roles: number[] | null;
 };
 
 export type APIEditMessageOptions = { content: string };
 
-export type APICreateGroupOptions = { name: string };
+export type APIInvite = {
+  channel_id: number;
+  code: string;
+  id: number;
+  inviter_id: number;
+  server_id?: number | null;
+  uses: number;
+};
+
+export type APIMember = {
+  id: number;
+  joined_at: number;
+  nickname?: string | null;
+  roles: number[];
+  server_id: number;
+};
+
+export type APIMessage = {
+  author_id: number;
+  channel_id: number;
+  content?: string | null;
+  edited_at?: number | null;
+  id: number;
+};
+
+export type APIOverwrite = {
+  allow: number;
+  deny: number;
+  id: number;
+  type: APIOverwriteTypes;
+};
+
+export type APIOverwriteTypes = 'Role' | 'Member';
+
+export type APIRegisterAccountOptions = {
+  email: string;
+  invite_code: string | null;
+  password: string;
+  username: string;
+};
+
+export type APIRole = {
+  color: number;
+  hoist: boolean;
+  id: number;
+  name: string;
+  permissions: number;
+  server_id: number;
+};
+
+export type APIServer = {
+  banner?: string | null;
+  description?: string | null;
+  icon?: string | null;
+  id: number;
+  name: string;
+  owner_id: number;
+  permissions: number;
+};
+
+export type APISession = { id: number; token: string; user_id: number };
+
+export type APIUser = {
+  avatar?: string | null;
+  badges: number;
+  email: string;
+  id: number;
+  password: string;
+  username: string;
+  verified: boolean;
+};
 
 export type Routes = {
-  path: `/auth/accounts/register`;
+  path: `/auth/accounts/login`;
   parts: 3;
   method: 'POST';
-  response: APIUser;
+  response: APISession;
 } | {
   path: `/auth/accounts/verify/${string}/${string}`;
   parts: 5;
   method: 'GET';
   response: undefined;
 } | {
-  path: `/auth/sessions`;
-  parts: 2;
-  method: 'GET';
-  response: APISession[];
+  path: `/auth/accounts/verify/${string}/${string}`;
+  parts: 5;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/auth/accounts/register`;
+  parts: 3;
+  method: 'POST';
+  response: APIUser;
 } | {
   path: `/auth/sessions`;
   parts: 2;
@@ -207,24 +163,24 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
-  path: `/bots`;
-  parts: 1;
-  method: 'GET';
-  response: APIBot[];
-} | {
-  path: `/bots`;
-  parts: 1;
-  method: 'POST';
+  path: `/auth/sessions/${string}`;
+  parts: 3;
+  method: 'PARAMETERS';
   response: undefined;
 } | {
-  path: `/bots/${string}`;
+  path: `/users/@me`;
   parts: 2;
   method: 'GET';
-  response: APIBot;
+  response: APIUser;
 } | {
-  path: `/bots/${string}`;
+  path: `/users/${string}`;
   parts: 2;
-  method: 'DELETE';
+  method: 'GET';
+  response: APIUser;
+} | {
+  path: `/users/${string}`;
+  parts: 2;
+  method: 'PARAMETERS';
   response: undefined;
 } | {
   path: `/channels`;
@@ -237,16 +193,6 @@ export type Routes = {
   method: 'POST';
   response: APIChannel;
 } | {
-  path: `/channels/join/${string}/${string}`;
-  parts: 4;
-  method: 'POST';
-  response: undefined;
-} | {
-  path: `/channels/leave/${string}/${string}`;
-  parts: 4;
-  method: 'POST';
-  response: undefined;
-} | {
   path: `/channels/${string}`;
   parts: 2;
   method: 'GET';
@@ -255,6 +201,76 @@ export type Routes = {
   path: `/channels/${string}`;
   parts: 2;
   method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/channels/${string}`;
+  parts: 2;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/channels/${string}/${string}`;
+  parts: 3;
+  method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/channels/${string}/${string}`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/channels/${string}/messages`;
+  parts: 3;
+  method: 'POST';
+  response: APIMessage;
+} | {
+  path: `/channels/${string}/messages`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/channels/${string}/messages/${string}`;
+  parts: 4;
+  method: 'GET';
+  response: APIMessage;
+} | {
+  path: `/channels/${string}/messages/${string}`;
+  parts: 4;
+  method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/channels/${string}/messages/${string}`;
+  parts: 4;
+  method: 'PATCH';
+  response: APIMessage;
+} | {
+  path: `/channels/${string}/messages/${string}`;
+  parts: 4;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/bots`;
+  parts: 1;
+  method: 'GET';
+  response: APIBot[];
+} | {
+  path: `/bots`;
+  parts: 1;
+  method: 'POST';
+  response: APIBot;
+} | {
+  path: `/bots/${string}`;
+  parts: 2;
+  method: 'GET';
+  response: APIBot;
+} | {
+  path: `/bots/${string}`;
+  parts: 2;
+  method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/bots/${string}`;
+  parts: 2;
+  method: 'PARAMETERS';
   response: undefined;
 } | {
   path: `/invites`;
@@ -270,27 +286,12 @@ export type Routes = {
   path: `/invites/${string}`;
   parts: 2;
   method: 'POST';
+  response: APIInvite;
+} | {
+  path: `/invites/${string}`;
+  parts: 2;
+  method: 'PARAMETERS';
   response: undefined;
-} | {
-  path: `/messages`;
-  parts: 1;
-  method: 'POST';
-  response: APIMessage;
-} | {
-  path: `/messages/${string}`;
-  parts: 2;
-  method: 'GET';
-  response: APIMessage;
-} | {
-  path: `/messages/${string}`;
-  parts: 2;
-  method: 'DELETE';
-  response: undefined;
-} | {
-  path: `/messages/${string}`;
-  parts: 2;
-  method: 'PATCH';
-  response: APIMessage;
 } | {
   path: `/servers`;
   parts: 1;
@@ -312,49 +313,14 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
-  path: `/servers/${string}/channels`;
-  parts: 3;
-  method: 'GET';
-  response: APIChannel[];
-} | {
-  path: `/servers/${string}/channels`;
-  parts: 3;
-  method: 'POST';
-  response: APIChannel;
-} | {
-  path: `/servers/${string}/channels/${string}`;
-  parts: 4;
-  method: 'GET';
-  response: APIChannel;
-} | {
-  path: `/servers/${string}/channels/${string}`;
-  parts: 4;
-  method: 'DELETE';
-  response: undefined;
-} | {
-  path: `/servers/${string}/channels/${string}`;
-  parts: 4;
+  path: `/servers/${string}`;
+  parts: 2;
   method: 'PATCH';
-  response: APIChannel;
+  response: APIServer;
 } | {
-  path: `/servers/${string}/invites`;
-  parts: 3;
-  method: 'GET';
-  response: APIInvite[];
-} | {
-  path: `/servers/${string}/invites`;
-  parts: 3;
-  method: 'POST';
-  response: APIInvite;
-} | {
-  path: `/servers/${string}/invites/${string}`;
-  parts: 4;
-  method: 'GET';
-  response: APIInvite;
-} | {
-  path: `/servers/${string}/invites/${string}`;
-  parts: 4;
-  method: 'DELETE';
+  path: `/servers/${string}`;
+  parts: 2;
+  method: 'PARAMETERS';
   response: undefined;
 } | {
   path: `/servers/${string}/members`;
@@ -362,6 +328,16 @@ export type Routes = {
   method: 'GET';
   response: APIMember[];
 } | {
+  path: `/servers/${string}/members`;
+  parts: 3;
+  method: 'DELETE';
+  response: APIMember;
+} | {
+  path: `/servers/${string}/members`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
   method: 'GET';
@@ -369,13 +345,13 @@ export type Routes = {
 } | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
-  method: 'DELETE';
-  response: undefined;
+  method: 'PATCH';
+  response: APIMember;
 } | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
-  method: 'PATCH';
-  response: APIMember;
+  method: 'PARAMETERS';
+  response: undefined;
 } | {
   path: `/servers/${string}/roles`;
   parts: 3;
@@ -385,7 +361,12 @@ export type Routes = {
   path: `/servers/${string}/roles`;
   parts: 3;
   method: 'POST';
-  response: APIRole[];
+  response: APIRole;
+} | {
+  path: `/servers/${string}/roles`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
 } | {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
@@ -400,17 +381,72 @@ export type Routes = {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
   method: 'PATCH';
-  response: APIRole[];
+  response: APIRole;
 } | {
-  path: `/users/@me`;
-  parts: 2;
-  method: 'GET';
-  response: APIUser;
+  path: `/servers/${string}/roles/${string}`;
+  parts: 4;
+  method: 'PARAMETERS';
+  response: undefined;
 } | {
-  path: `/users/${string}`;
-  parts: 2;
+  path: `/servers/${string}/invites`;
+  parts: 3;
   method: 'GET';
-  response: APIUser;
+  response: APIInvite[];
+} | {
+  path: `/servers/${string}/invites`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/servers/${string}/invites/${string}`;
+  parts: 4;
+  method: 'GET';
+  response: APIInvite;
+} | {
+  path: `/servers/${string}/invites/${string}`;
+  parts: 4;
+  method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/servers/${string}/invites/${string}`;
+  parts: 4;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/servers/${string}/channels`;
+  parts: 3;
+  method: 'GET';
+  response: APIChannel[];
+} | {
+  path: `/servers/${string}/channels`;
+  parts: 3;
+  method: 'POST';
+  response: APIChannel;
+} | {
+  path: `/servers/${string}/channels`;
+  parts: 3;
+  method: 'PARAMETERS';
+  response: undefined;
+} | {
+  path: `/servers/${string}/channels/${string}`;
+  parts: 4;
+  method: 'GET';
+  response: APIChannel;
+} | {
+  path: `/servers/${string}/channels/${string}`;
+  parts: 4;
+  method: 'DELETE';
+  response: undefined;
+} | {
+  path: `/servers/${string}/channels/${string}`;
+  parts: 4;
+  method: 'PATCH';
+  response: APIChannel;
+} | {
+  path: `/servers/${string}/channels/${string}`;
+  parts: 4;
+  method: 'PARAMETERS';
+  response: undefined;
 };
 export type GetRoutes = Extract<Routes, { method: 'GET' }>;
 export type DeleteRoutes = Extract<Routes, { method: 'DELETE' }>;
