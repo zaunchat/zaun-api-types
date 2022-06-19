@@ -55,6 +55,10 @@ export type APIEditMemberOptions = {
 
 export type APIEditMessageOptions = { content: string };
 
+export type APIEditServerChannelOptions = { name: string | null };
+
+export type APIEditServerOptions = { name: string | null };
+
 export type APIInvite = {
   channel_id: number;
   code: string;
