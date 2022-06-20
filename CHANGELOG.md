@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/itchatapp/itchat-api-types/compare/v1.2.2...v1.2.3) (2022-06-20)
+
+
+### Performance Improvements
+
+* release ([3d8b8b1](https://github.com/itchatapp/itchat-api-types/commit/3d8b8b18059989ba82b435419976d8bd1d299e2d))
+
 ## [1.2.2](https://github.com/itchatapp/itchat-api-types/compare/v1.2.1...v1.2.2) (2022-06-16)
 
 
