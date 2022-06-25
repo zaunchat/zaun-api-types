@@ -8,7 +8,7 @@ export type APIBot = {
 export type APIChannel = {
   id: number;
   name?: string | null;
-  overwrites?: APIOverwrite[] | null;
+  overwrites: APIChannelOverwrites;
   owner_id?: number | null;
   parent_id?: number | null;
   permissions?: number | null;
@@ -18,13 +18,9 @@ export type APIChannel = {
   type: APIChannelTypes;
 };
 
-export type APIChannelTypes =
-  | 'Direct'
-  | 'Group'
-  | 'Text'
-  | 'Voice'
-  | 'Category'
-  | 'Unknown';
+export type APIChannelOverwrites = APIOverwrite[] | null;
+
+export type APIChannelTypes = 0 | 1 | 2 | 3 | 4 | 5;
 
 export type APICreateGroupOptions = { name: string };
 
@@ -91,7 +87,7 @@ export type APIOverwrite = {
   type: APIOverwriteTypes;
 };
 
-export type APIOverwriteTypes = 'Role' | 'Member';
+export type APIOverwriteTypes = 0 | 1;
 
 export type APIRegisterAccountOptions = {
   email: string;
@@ -142,11 +138,6 @@ export type Routes = {
   method: 'GET';
   response: undefined;
 } | {
-  path: `/auth/accounts/verify/${string}/${string}`;
-  parts: 5;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/auth/accounts/register`;
   parts: 3;
   method: 'POST';
@@ -167,11 +158,6 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
-  path: `/auth/sessions/${string}`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/users/@me`;
   parts: 2;
   method: 'GET';
@@ -181,11 +167,6 @@ export type Routes = {
   parts: 2;
   method: 'GET';
   response: APIUser;
-} | {
-  path: `/users/${string}`;
-  parts: 2;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/channels`;
   parts: 1;
@@ -207,30 +188,15 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
-  path: `/channels/${string}`;
-  parts: 2;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/channels/${string}/${string}`;
   parts: 3;
   method: 'DELETE';
-  response: undefined;
-} | {
-  path: `/channels/${string}/${string}`;
-  parts: 3;
-  method: 'PARAMETERS';
   response: undefined;
 } | {
   path: `/channels/${string}/messages`;
   parts: 3;
   method: 'POST';
   response: APIMessage;
-} | {
-  path: `/channels/${string}/messages`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/channels/${string}/messages/${string}`;
   parts: 4;
@@ -246,11 +212,6 @@ export type Routes = {
   parts: 4;
   method: 'PATCH';
   response: APIMessage;
-} | {
-  path: `/channels/${string}/messages/${string}`;
-  parts: 4;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/bots`;
   parts: 1;
@@ -272,11 +233,6 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
-  path: `/bots/${string}`;
-  parts: 2;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/invites`;
   parts: 1;
   method: 'POST';
@@ -291,11 +247,6 @@ export type Routes = {
   parts: 2;
   method: 'POST';
   response: APIInvite;
-} | {
-  path: `/invites/${string}`;
-  parts: 2;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/servers`;
   parts: 1;
@@ -322,11 +273,6 @@ export type Routes = {
   method: 'PATCH';
   response: APIServer;
 } | {
-  path: `/servers/${string}`;
-  parts: 2;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/servers/${string}/members`;
   parts: 3;
   method: 'GET';
@@ -337,11 +283,6 @@ export type Routes = {
   method: 'DELETE';
   response: APIMember;
 } | {
-  path: `/servers/${string}/members`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/servers/${string}/members/${string}`;
   parts: 4;
   method: 'GET';
@@ -351,11 +292,6 @@ export type Routes = {
   parts: 4;
   method: 'PATCH';
   response: APIMember;
-} | {
-  path: `/servers/${string}/members/${string}`;
-  parts: 4;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/servers/${string}/roles`;
   parts: 3;
@@ -367,11 +303,6 @@ export type Routes = {
   method: 'POST';
   response: APIRole;
 } | {
-  path: `/servers/${string}/roles`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/servers/${string}/roles/${string}`;
   parts: 4;
   method: 'GET';
@@ -387,20 +318,10 @@ export type Routes = {
   method: 'PATCH';
   response: APIRole;
 } | {
-  path: `/servers/${string}/roles/${string}`;
-  parts: 4;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/servers/${string}/invites`;
   parts: 3;
   method: 'GET';
   response: APIInvite[];
-} | {
-  path: `/servers/${string}/invites`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
 } | {
   path: `/servers/${string}/invites/${string}`;
   parts: 4;
@@ -410,11 +331,6 @@ export type Routes = {
   path: `/servers/${string}/invites/${string}`;
   parts: 4;
   method: 'DELETE';
-  response: undefined;
-} | {
-  path: `/servers/${string}/invites/${string}`;
-  parts: 4;
-  method: 'PARAMETERS';
   response: undefined;
 } | {
   path: `/servers/${string}/channels`;
@@ -427,11 +343,6 @@ export type Routes = {
   method: 'POST';
   response: APIChannel;
 } | {
-  path: `/servers/${string}/channels`;
-  parts: 3;
-  method: 'PARAMETERS';
-  response: undefined;
-} | {
   path: `/servers/${string}/channels/${string}`;
   parts: 4;
   method: 'GET';
@@ -446,11 +357,6 @@ export type Routes = {
   parts: 4;
   method: 'PATCH';
   response: APIChannel;
-} | {
-  path: `/servers/${string}/channels/${string}`;
-  parts: 4;
-  method: 'PARAMETERS';
-  response: undefined;
 };
 export type GetRoutes = Extract<Routes, { method: 'GET' }>;
 export type DeleteRoutes = Extract<Routes, { method: 'DELETE' }>;

@@ -4,7 +4,9 @@ import type {
   SchemaObject,
 } from 'https://raw.githubusercontent.com/brecert/revolt-api/main/scripts/types.ts';
 
-const OpenAPI: OpenAPI3 = await fetch('http://docs.itchat.world/openapi.json')
+const OpenAPI: OpenAPI3 = await fetch(
+  'https://raw.githubusercontent.com/itchatapp/documentation/master/openapi.json',
+)
   .then((r) => r.json());
 
 const components: string[] = [];
@@ -72,6 +74,10 @@ function getType(schema: ReferenceObject | SchemaObject): string {
   }
 
   if (schema.type === 'integer') schema.type = 'number';
+  if (schema.type === 'number' && schema.example != null) {
+    schema.type = schema.example;
+  }
+
   if (schema.type && Object.keys(extractedTypes).length === 0) {
     extractedTypes.type = schema.type;
     if (schema.nullable) extractedTypes.type = nullable(extractedTypes.type);
@@ -85,6 +91,12 @@ function getType(schema: ReferenceObject | SchemaObject): string {
 
 for (const [path, methods] of Object.entries(OpenAPI.paths!)) {
   for (const [method, data] of Object.entries(methods)) {
+    if (
+      !['GET', 'POST', 'DELETE', 'PATCH', 'PUT'].includes(method.toUpperCase())
+    ) {
+      continue;
+    }
+
     const schema = data.responses?.['200']?.content?.['application/json']
       ?.schema;
     const typedResponse = getType(schema);
