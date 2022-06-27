@@ -1,24 +1,26 @@
 export type APIBot = {
-  id: number;
-  owner_id: number;
+  id: string;
+  owner_id: string;
   username: string;
   verified: boolean;
 };
 
 export type APIChannel = {
-  id: number;
+  id: string;
   name?: string | null;
   overwrites: APIChannelOverwrites;
-  owner_id?: number | null;
-  parent_id?: number | null;
-  permissions?: number | null;
-  recipients?: number[] | null;
-  server_id?: number | null;
+  owner_id?: string | null;
+  parent_id?: string | null;
+  permissions?: string | null;
+  recipients?: APIChannelRecipients;
+  server_id?: string | null;
   topic?: string | null;
   type: APIChannelTypes;
 };
 
 export type APIChannelOverwrites = APIOverwrite[] | null;
+
+export type APIChannelRecipients = string[] | null;
 
 export type APIChannelTypes = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -32,7 +34,7 @@ export type APICreateRoleOptions = {
   color: number;
   hoist: boolean;
   name: string;
-  permissions: number;
+  permissions: string;
 };
 
 export type APICreateServerChannelOptions = {
@@ -56,34 +58,36 @@ export type APIEditServerChannelOptions = { name: string | null };
 export type APIEditServerOptions = { name: string | null };
 
 export type APIInvite = {
-  channel_id: number;
+  channel_id: string;
   code: string;
-  id: number;
-  inviter_id: number;
-  server_id?: number | null;
+  id: string;
+  inviter_id: string;
+  server_id: string | null;
   uses: number;
 };
 
 export type APIMember = {
-  id: number;
-  joined_at: number;
-  nickname?: string | null;
-  roles: number[];
-  server_id: number;
+  id: string;
+  joined_at: string;
+  nickname: string | null;
+  roles: APIMemberRoles;
+  server_id: string;
 };
 
+export type APIMemberRoles = string[];
+
 export type APIMessage = {
-  author_id: number;
-  channel_id: number;
-  content?: string | null;
-  edited_at?: number | null;
-  id: number;
+  author_id: string;
+  channel_id: string;
+  content: string | null;
+  edited_at: string | null;
+  id: string;
 };
 
 export type APIOverwrite = {
-  allow: number;
-  deny: number;
-  id: number;
+  allow: string;
+  deny: string;
+  id: string;
   type: APIOverwriteTypes;
 };
 
@@ -99,29 +103,29 @@ export type APIRegisterAccountOptions = {
 export type APIRole = {
   color: number;
   hoist: boolean;
-  id: number;
+  id: string;
   name: string;
-  permissions: number;
-  server_id: number;
+  permissions: string;
+  server_id: string;
 };
 
 export type APIServer = {
-  banner?: string | null;
-  description?: string | null;
-  icon?: string | null;
-  id: number;
+  banner: string | null;
+  description: string | null;
+  icon: string | null;
+  id: string;
   name: string;
-  owner_id: number;
-  permissions: number;
+  owner_id: string;
+  permissions: string;
 };
 
-export type APISession = { id: number; token: string; user_id: number };
+export type APISession = { id: string; token: string; user_id: string };
 
 export type APIUser = {
-  avatar?: string | null;
-  badges: number;
+  avatar: string | null;
+  badges: string;
   email: string;
-  id: number;
+  id: string;
   password: string;
   username: string;
   verified: boolean;
