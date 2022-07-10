@@ -8,7 +8,7 @@ export type APIBot = {
 export type APIChannel = {
   id: string;
   name?: string | null;
-  overwrites: APIChannelOverwrites;
+  overwrites?: APIChannelOverwrites;
   owner_id?: string | null;
   parent_id?: string | null;
   permissions?: string | null;
@@ -45,6 +45,8 @@ export type APICreateServerChannelOptions = {
 export type APICreateServerOptions = { name: string };
 
 export type APICreateSessionOptions = { email: string; password: string };
+
+export type APIEditGroupOptions = { name: string | null };
 
 export type APIEditMemberOptions = {
   nickname: string | null;
@@ -100,6 +102,8 @@ export type APIRegisterAccountOptions = {
   username: string;
 };
 
+export type APIRelationshipStatus = 0 | 1 | 2 | 3 | 4;
+
 export type APIRole = {
   color: number;
   hoist: boolean;
@@ -119,16 +123,14 @@ export type APIServer = {
   permissions: string;
 };
 
-export type APISession = { id: string; token: string; user_id: string };
+export type APISession = { id: string };
 
 export type APIUser = {
   avatar: string | null;
   badges: string;
-  email: string;
   id: string;
-  password: string;
+  relationship: APIRelationshipStatus;
   username: string;
-  verified: boolean;
 };
 
 export type Routes = {
@@ -137,8 +139,8 @@ export type Routes = {
   method: 'POST';
   response: APISession;
 } | {
-  path: `/auth/accounts/verify/${string}/${string}`;
-  parts: 5;
+  path: `/auth/accounts/verify`;
+  parts: 3;
   method: 'GET';
   response: undefined;
 } | {
@@ -162,6 +164,11 @@ export type Routes = {
   method: 'DELETE';
   response: undefined;
 } | {
+  path: `/users`;
+  parts: 1;
+  method: 'GET';
+  response: APIUser[];
+} | {
   path: `/users/@me`;
   parts: 2;
   method: 'GET';
@@ -171,6 +178,26 @@ export type Routes = {
   parts: 2;
   method: 'GET';
   response: APIUser;
+} | {
+  path: `/users/${string}/dm`;
+  parts: 3;
+  method: 'GET';
+  response: APIChannel;
+} | {
+  path: `/users/@me/relationships/${string}`;
+  parts: 4;
+  method: 'PUT';
+  response: undefined;
+} | {
+  path: `/users/@me/relationships/${string}`;
+  parts: 4;
+  method: 'POST';
+  response: undefined;
+} | {
+  path: `/users/@me/relationships/${string}`;
+  parts: 4;
+  method: 'DELETE';
+  response: undefined;
 } | {
   path: `/channels`;
   parts: 1;
@@ -191,6 +218,11 @@ export type Routes = {
   parts: 2;
   method: 'DELETE';
   response: undefined;
+} | {
+  path: `/channels/${string}`;
+  parts: 2;
+  method: 'PATCH';
+  response: APIChannel;
 } | {
   path: `/channels/${string}/${string}`;
   parts: 3;
