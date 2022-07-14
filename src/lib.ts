@@ -1,3 +1,12 @@
+export type APIAttachment = {
+  content_type: string;
+  filename: string;
+  height?: number | null;
+  id: string;
+  size: number;
+  width?: number | null;
+};
+
 export type APIBot = {
   id: string;
   owner_id: string;
@@ -28,7 +37,10 @@ export type APICreateGroupOptions = { name: string };
 
 export type APICreateInviteOptions = { channel_id: number };
 
-export type APICreateMessageOptions = { content: string };
+export type APICreateMessageOptions = {
+  attachments: APIAttachment[] | null;
+  content: string | null;
+};
 
 export type APICreateRoleOptions = {
   color: number;
@@ -79,12 +91,15 @@ export type APIMember = {
 export type APIMemberRoles = string[];
 
 export type APIMessage = {
+  attachments: APIMessageAttachments;
   author_id: string;
   channel_id: string;
   content: string | null;
   edited_at: string | null;
   id: string;
 };
+
+export type APIMessageAttachments = APIAttachment[];
 
 export type APIOverwrite = {
   allow: string;
@@ -101,6 +116,8 @@ export type APIRegisterAccountOptions = {
   password: string;
   username: string;
 };
+
+export type APIRegisterResponse = { pending_verification: boolean };
 
 export type APIRelationshipStatus = 0 | 1 | 2 | 3 | 4;
 
@@ -147,12 +164,12 @@ export type Routes = {
   path: `/auth/accounts/register`;
   parts: 3;
   method: 'POST';
-  response: APIUser;
+  response: APIRegisterResponse;
 } | {
   path: `/auth/sessions`;
   parts: 2;
   method: 'POST';
-  response: APISession;
+  response: string;
 } | {
   path: `/auth/sessions/${string}`;
   parts: 3;
