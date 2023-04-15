@@ -1,3 +1,15 @@
+## [1.2.8](https://github.com/itchatapp/itchat-api-types/compare/v1.2.7...v1.2.8) (2023-04-15)
+
+
+### Bug Fixes
+
+* CI ([2703d8d](https://github.com/itchatapp/itchat-api-types/commit/2703d8d25a9a5432251fdf318056d8c170b064e5))
+
+
+### Performance Improvements
+
+* type update ([41e6ebf](https://github.com/itchatapp/itchat-api-types/commit/41e6ebf05fa265975f2176c8ac8e9a993d9aebf4))
+
 ## [1.2.7](https://github.com/itchatapp/itchat-api-types/compare/v1.2.6...v1.2.7) (2022-07-14)
 
 
