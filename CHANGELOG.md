@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/itchatapp/itchat-api-types/compare/v1.2.9...v1.2.10) (2023-04-16)
+
+
+### Performance Improvements
+
+* update types ([238f90e](https://github.com/itchatapp/itchat-api-types/commit/238f90eb3acdfdb9fdb06a17780588177f97e94e))
+
 ## [1.2.9](https://github.com/itchatapp/itchat-api-types/compare/v1.2.8...v1.2.9) (2023-04-16)
 
 
