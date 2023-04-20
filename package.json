@@ -1,6 +1,6 @@
 {
   "name": "@zaunapp/types",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "Zaun API types",
   "main": "src/lib.js",
   "types": "./src/lib.d.ts",
