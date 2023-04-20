@@ -1,3 +1,10 @@
+## [1.2.12](https://github.com/zaunchat/zaun-api-types/compare/v1.2.11...v1.2.12) (2023-04-20)
+
+
+### Bug Fixes
+
+* **npm:** Make package public ([1cfd008](https://github.com/zaunchat/zaun-api-types/commit/1cfd00802225072e2574bfe99a7abe3b5f2db739))
+
 ## [1.2.11](https://github.com/zaunchat/zaun-api-types/compare/v1.2.10...v1.2.11) (2023-04-20)
 
 
