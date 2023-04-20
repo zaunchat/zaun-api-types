@@ -1,3 +1,10 @@
+## [1.2.11](https://github.com/zaunchat/zaun-api-types/compare/v1.2.10...v1.2.11) (2023-04-20)
+
+
+### Performance Improvements
+
+* Update types ([db72ff7](https://github.com/zaunchat/zaun-api-types/commit/db72ff767d80656a62d29e7e1161ea9071a2a617))
+
 ## [1.2.10](https://github.com/itchatapp/itchat-api-types/compare/v1.2.9...v1.2.10) (2023-04-16)
 
 
