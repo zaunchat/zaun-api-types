@@ -14,9 +14,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+      - name: Install packages
+        run: npm ci && npm run build
       - name: Setup semantic-release
         run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog -D
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release

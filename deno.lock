@@ -1,6 +1,0 @@
-{
-  "version": "2",
-  "remote": {
-    "https://raw.githubusercontent.com/brecert/revolt-api/main/scripts/types.ts": "10749efdb6c1b5d0a955d64fd0728ab644c6655cb5807998fb35c078dddedb28"
-  }
-}

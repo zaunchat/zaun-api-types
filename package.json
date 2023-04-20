@@ -1,0 +1,43 @@
+{
+  "name": "zaun-api-types",
+  "version": "1.0.0",
+  "description": "Zaun API types",
+  "main": "src/lib.js",
+  "types": "./src/lib.d.ts",
+  "scripts": {
+    "build": "node build.js",
+    "format": "prettier src --write"
+  },
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaunapp/zaun-api-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zaunapp/zaun-api-types/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.12",
+    "node-fetch": "^3.3.1",
+    "prettier": "^2.8.7"
+  },
+  "files": [
+    "src/*"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/lib.js",
+      "types": "./src/lib.d.ts"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "useTabs": true,
+    "singleQuote": true,
+    "quoteProps": "as-needed",
+    "trailingComma": "none",
+    "endOfLine": "lf",
+    "semi": false
+  }
+}
