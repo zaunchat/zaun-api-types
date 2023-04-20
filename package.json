@@ -40,5 +40,8 @@
     "trailingComma": "none",
     "endOfLine": "lf",
     "semi": false
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
