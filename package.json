@@ -8,6 +8,7 @@
     "build": "node build.js",
     "format": "prettier src --write"
   },
+  "private": false,
   "type": "module",
   "license": "MIT",
   "repository": {
