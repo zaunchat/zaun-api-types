@@ -1,5 +1,5 @@
 {
-  "name": "zaun-api-types",
+  "name": "@zaunapp/types",
   "version": "1.0.0",
   "description": "Zaun API types",
   "main": "src/lib.js",
@@ -12,10 +12,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zaunapp/zaun-api-types.git"
+    "url": "git+https://github.com/zaunchat/zaun-api-types.git"
   },
   "bugs": {
-    "url": "https://github.com/zaunapp/zaun-api-types/issues"
+    "url": "https://github.com/zaunchat/zaun-api-types/issues"
   },
   "devDependencies": {
     "@types/node": "^18.15.12",
